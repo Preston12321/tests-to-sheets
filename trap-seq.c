@@ -49,8 +49,7 @@ int main(int argc, char** argv) {
   double elapsed_time = end - start;
 
   //output
-  // printf("With %ld trapezoids, our esimate of the integral from %lf to %lf is %lf\n", n, a, b, integral);
-  // printf("Sequential time: %lf seconds\n", elapsed_time);
+  // Only print out the time result with a trailing space
   printf("%lf ", elapsed_time);
 }
 

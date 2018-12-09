@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
 
 
 #ifdef _OPENMP
-  printf("OMP defined, threadct = %d\n", threadct);
+  // Doesn't print threadcount anymore
   omp_set_num_threads(threadct);
 #else
   printf("OMP not defined\n");
@@ -48,9 +48,6 @@ int main(int argc, char** argv) {
   double start = omp_get_wtime();
 
 // compute each rectangle, adding area to the accumulator
-///////////////// FIX !!!
-// TODO: add the proper additions to the openmp pragma here for correct output
-////////////////
 #pragma omp parallel for default(none) shared(a, h, n) private (i) reduction(+:integral)
   for(i = 1; i < n; i++) {
     integral += f(a+i*h);
@@ -64,8 +61,7 @@ int main(int argc, char** argv) {
   double elapsed_time = end - start;
 
   //output
-  // printf("With %ld trapezoids, our esimate of the integral from %lf to %lf is %lf\n", n, a, b, integral);
-  // printf("Parallel time: %lf seconds\n", elapsed_time);
+  // Only print out the time result with a trailing space
   printf("%lf ", elapsed_time);
 }
 

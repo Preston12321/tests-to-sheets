@@ -1,20 +1,24 @@
+# Author: Preston Locke
+
 from __future__ import print_function
 from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
+from sys import argv
 
+# Define the permissions to request for this program
 # If modifying these scopes, delete the file token.json.
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 
-# The ID and range of a sample spreadsheet.
-# SAMPLE_SPREADSHEET_ID = '1AoPWgr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA'
-SAMPLE_SPREADSHEET_ID = '1894IkSZptgj9hnY7fDO5J4gVLjrZqpkRBSUasS0RgPg'
-SAMPLE_RANGE_NAME = 'R11:V75'
-
 def main():
-    """Shows basic usage of the Sheets API.
-    Prints values from a sample spreadsheet.
-    """
+    if len(argv) != 5:
+        return
+    
+    valuesFile = argv[1]
+    testCount = argv[2]
+    spreadsheetId = argv[3]
+    targetRange = argv[4]
+
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
@@ -22,33 +26,35 @@ def main():
     creds = store.get()
     if not creds or creds.invalid:
         flow = client.flow_from_clientsecrets('client_id.json', SCOPES)
-        creds = tools.run_flow(flow, store)
-    service = build('sheets', 'v4', http=creds.authorize(Http()))
+        args = tools.argparser.parse_args()
+        args.noauth_local_webserver = True # Don't open a browser
+        creds = tools.run_flow(flow, store, args)
 
-    # Call the Sheets API
-    sheet = service.spreadsheets()
-    # result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
-    #                             range=SAMPLE_RANGE_NAME).execute()
-    # values = result.get('values', [])
+    # Retrieve the Sheets API
+    sheet = build('sheets', 'v4', http=creds.authorize(Http())).spreadsheets()
 
+    # Retrieve the values from file
     cols = []
-    with open('values.txt') as f:
+    with open(valuesFile) as f:
+        # Each line represents a column on the spreadsheet
         for line in f.readlines():
-            row = line.split(' ')
-            cols.append(row)
+            values = line.split(' ') # Values are space-separated
+            column = []
+            for i in range(len(values)):
+                # Skip the cells that calculate the Median
+                if (i % testCount) == 0 and i != 0:
+                    column.append(None)
+                column.append(values[i])
+            cols.append(column)
     
-    body = {'values': cols, 'majorDimension': 'COLUMNS'}
+    requestBody = {'values': cols, 'majorDimension': 'COLUMNS'}
 
-    result = sheet.values().update(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME, valueInputOption='USER_ENTERED', body=body).execute()
-
-    # col_names = ['R', 'S', 'T', 'U', 'V']
-    # start_row = 11
-    # for c in range(len(cols)):
-    #     col = cols[c]
-    #     col_name = col_names[c]
-    #     for i in range(len(col)):
-    #         row_num = start_row + i + int(i / 10)
-
+    sheet.values().update(
+        spreadsheetId=spreadsheetId,
+        range=targetRange,
+        valueInputOption='USER_ENTERED',
+        body=requestBody
+        ).execute()
 
 
 if __name__ == '__main__':
