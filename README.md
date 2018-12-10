@@ -38,7 +38,7 @@ Will run all tests 10 times and upload the results to the range R11:V75 of the g
 1. Run the test script as specified.
 2. When the script prompts, copy the URL specified in the terminal and open the URL in the browser on your local machine. **(Not the remote server, because there is no way to open a GUI browser remotely)**
 3. Sign in to the account that holds your results spreadsheet and allow access to the script.
-4. Close the browser window after you are done and return to your terminal. The script should now complete and upload the results where you specified. 
+4. Close the page after you are done and return to your terminal. The script should now complete and upload the results where you specified. You should now see the values in your spreadsheet.
 
 # What I Changed
 To put it simply, in order to make uploading all the values easier, I removed all print statements from the original C files except for the result times themselves, and added code to run_tests.sh to write those to an intermediate file, 'values.txt', which is then fed to the python upload script.
