@@ -25,10 +25,12 @@ Will run all tests 10 times and upload the results to the range R11:V75 of the g
 1. Open the spreadsheet.
 2. The URL should look something like this:
    ```
-   https://docs.google.com/spreadsheets/d/1AoPWgr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA/edit#gid=542348360
+   https://docs.google.com/spreadsheets/d/1AoPWfr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA/edit#gid=542348360
    ```
    We're interested in the part between the '/d/' and '/edit#...'
    In this example, the spreadsheet ID is
    ```
-   1AoPWgr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA
+   1AoPWfr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA
    ```
+3. Find the table in the spreadsheet where you want to insert your results. The range you need will be in the format AA:BB where AA represents the cell name of the top left cell of the table and BB represents the cell name of the bottom right cell of the table. So a valid range would be something like: *R11:75*
+   **Do not include the headers or the final Median row in the range. The range should begin and end in cells that will actually hold the values of your results!**
