@@ -16,9 +16,9 @@
    6. Download the new credentials and save them in the activity directory. Make sure the file is called **client_id.json**.
 
 ## Uploader Usage:
-'''bash
+```console
 bash ./run_tests.sh 10 kj2l3k2h34l5kh3ljlkhk2gh34 R11:V75
-'''
+```
 Will run all tests 10 times and upload the results to the range R11:V75 of the google sheet with id kj2l3k2h34l5kh3ljlkhk2gh34.
 
 ### How to Find Spreadsheet ID and Range
