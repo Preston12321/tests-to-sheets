@@ -22,3 +22,13 @@ bash ./run_tests.sh 10 kj2l3k2h34l5kh3ljlkhk2gh34 R11:V75
 Will run all tests 10 times and upload the results to the range R11:V75 of the google sheet with id kj2l3k2h34l5kh3ljlkhk2gh34.
 
 ### How to Find Spreadsheet ID and Range
+1. Open the spreadsheet.
+2. The URL should look something like this:
+   ```
+   https://docs.google.com/spreadsheets/d/1AoPWgr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA/edit#gid=542348360
+   ```
+   We're interested in the part between the '/d/' and '/edit#...'
+   In this example, the spreadsheet ID is
+   ```
+   1AoPWgr7YNP3p0PmFYO_qByrrSuKDcmd-ImII1BVMzIA
+   ```
