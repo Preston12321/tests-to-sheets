@@ -13,9 +13,15 @@
    5. In *Product name shown to users*, type 'Sheets Uploader' or some other appropriate name and click **Continue**.
    6. Download the new credentials and save them in the activity directory. Make sure the file is called **client_id.json**.
 
+## Dependencies
+The python script requires the Google Sheets API and OAuth2 client libraries.
+```console
+$ pip install --upgrade google-api-python-client oauth2client
+```
+
 # Uploader Usage:
 ```console
-bash ./run_tests.sh 10 kj2l3k2h34l5kh3ljlkhk2gh34 R11:V75
+$ bash ./run_tests.sh 10 kj2l3k2h34l5kh3ljlkhk2gh34 R11:V75
 ```
 Will run all tests 10 times and upload the results to the range R11:V75 of the google sheet with id kj2l3k2h34l5kh3ljlkhk2gh34.
 
