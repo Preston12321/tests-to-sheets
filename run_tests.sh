@@ -27,8 +27,9 @@ do
   for num_threads in 1 2 4 8 12 16
   do
     bash ./run_a_test.sh $problem_size $num_threads $num_times >> $file_name
-    printf "\n" >> $file_name
   done
+
+  printf "\n" >> $file_name
 
 done
 

@@ -19,6 +19,11 @@ def main():
     spreadsheetId = argv[3]
     targetRange = argv[4]
 
+    argv.pop()
+    argv.pop()
+    argv.pop()
+    argv[1] = "--noauth_local_webserver"
+
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
@@ -44,7 +49,8 @@ def main():
                 # Skip the cells that calculate the Median
                 if (i % testCount) == 0 and i != 0:
                     column.append(None)
-                column.append(values[i])
+                if values[i] != '\n':
+                    column.append(values[i])
             cols.append(column)
     
     requestBody = {'values': cols, 'majorDimension': 'COLUMNS'}
